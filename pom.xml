@@ -317,7 +317,7 @@
                 <configuration>
                     <useReleaseProfile>false</useReleaseProfile>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <tagNameFormat>releases/@{project.artifactId}_@{project.version}</tagNameFormat>
+                    <tagNameFormat>releases/@{project.artifactId}-@{project.version}</tagNameFormat>
                     <pushChanges>true</pushChanges>
                     <releaseProfiles>javanarior-release</releaseProfiles>
                     <localCheckout>false</localCheckout>
