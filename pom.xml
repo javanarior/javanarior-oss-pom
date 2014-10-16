@@ -20,7 +20,7 @@
 
     <groupId>de.javanarior</groupId>
     <artifactId>javanarior-oss-pom</artifactId>
-    <version>13-SNAPSHOT</version>
+    <version>14-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
