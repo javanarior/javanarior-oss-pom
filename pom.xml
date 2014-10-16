@@ -82,10 +82,10 @@
 
 
 
-<!--     <ciManagement> -->
-<!--         <system>Jenkins</system> -->
-<!--         <url>http://jenkins:8082/job/${project.artifactId}</url> -->
-<!--     </ciManagement> -->
+    <!-- <ciManagement> -->
+    <!-- <system>Jenkins</system> -->
+    <!-- <url>http://jenkins:8082/job/${project.artifactId}</url> -->
+    <!-- </ciManagement> -->
 
 
 
@@ -381,8 +381,7 @@
                         <configuration>
                             <rules>
                                 <requirePluginVersions>
-                                    <message>Best Practice is to always define
-                                        plugin versions!</message>
+                                    <message>Best Practice is to always define plugin versions!</message>
                                     <banLatest>true</banLatest>
                                     <banRelease>true</banRelease>
                                     <banSnapshots>true</banSnapshots>
@@ -392,7 +391,19 @@
                                     </additionalPlugins>
                                 </requirePluginVersions>
 
+                                <requireSameVersions>
+                                    <plugins>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                    </plugins>
+                                </requireSameVersions>
+
                                 <DependencyConvergence />
+
+                                <requireReleaseDeps>
+                                    <message>No Snapshots Allowed!</message>
+                                </requireReleaseDeps>
 
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
