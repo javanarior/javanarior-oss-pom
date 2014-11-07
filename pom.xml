@@ -62,6 +62,8 @@
         <java.version.target>${java.version}</java.version.target>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+
+        <maven.surefire.failsafe.plugin.version>2.18</maven.surefire.failsafe.plugin.version>
     </properties>
 
 
@@ -102,12 +104,12 @@
 
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.6.1</version>
                 </plugin>
 
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.17</version>
+                    <version>${maven.surefire.failsafe.plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -122,7 +124,7 @@
 
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.17</version>
+                    <version>${maven.surefire.failsafe.plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -167,7 +169,7 @@
 
                 <plugin>
                     <artifactId>maven-jxr-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5</version>
                 </plugin>
 
                 <plugin>
@@ -237,7 +239,7 @@
 
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.17</version>
+                    <version>${maven.surefire.failsafe.plugin.version}</version>
                 </plugin>
 
                 <plugin>
