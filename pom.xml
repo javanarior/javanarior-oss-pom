@@ -20,7 +20,7 @@
 
     <groupId>de.javanarior</groupId>
     <artifactId>javanarior-oss-pom</artifactId>
-    <version>17-SNAPSHOT</version>
+    <version>17</version>
 
     <packaging>pom</packaging>
 
@@ -72,7 +72,7 @@
         <url>scm:https://github.com/javanarior/javanarior-oss-pom.git</url>
         <connection>scm:https://github.com/javanarior/javanarior-oss-pom.git</connection>
         <developerConnection>scm:git:git@github.com:javanarior/javanarior-oss-pom.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>releases/javanarior-oss-pom-17</tag>
     </scm>
 
 
