@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -27,8 +28,8 @@
 
 
     <name>Javanarior Open Source POM</name>
-    <description>Base POM for Open Source Projects</description>
-    <url>https://github.com/javanarior/javanarior-oss-pom</url>
+    <description>Base POM</description>
+    <url>http://javanarior.github.io/${project.artifactId}</url>
 
 
 
@@ -57,21 +58,24 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>1.7</java.version>
-        <java.version.compiler>${java.version}</java.version.compiler>
-        <java.version.source>${java.version}</java.version.source>
-        <java.version.target>${java.version}</java.version.target>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.testSource>${java.version}</maven.compiler.testSource>
+        <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
+        <doxia-include-macro.version>1.1</doxia-include-macro.version>
         <maven.surefire.failsafe.plugin.version>2.18</maven.surefire.failsafe.plugin.version>
     </properties>
 
 
 
     <scm>
-        <url>scm:https://github.com/javanarior/javanarior-oss-pom.git</url>
-        <connection>scm:https://github.com/javanarior/javanarior-oss-pom.git</connection>
-        <developerConnection>scm:git:git@github.com:javanarior/javanarior-oss-pom.git</developerConnection>
+        <url>scm:https://github.com/javanarior/${project.artifactId}.git</url>
+        <connection>scm:git:https://github.com/javanarior/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:git@github.com:javanarior/${project.artifactId}.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -94,6 +98,8 @@
     <prerequisites>
         <maven>3.0.5</maven>
     </prerequisites>
+
+
 
 
 
@@ -238,11 +244,6 @@
                 </plugin>
 
                 <plugin>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>${maven.surefire.failsafe.plugin.version}</version>
-                </plugin>
-
-                <plugin>
                     <artifactId>maven-stage-plugin</artifactId>
                     <version>1.0-alpha-2</version>
                 </plugin>
@@ -305,9 +306,35 @@
                     <version>0.7.2.201409121644</version>
                 </plugin>
 
+                <!-- Additional plugins for site generation -->
+
+                <plugin>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${maven.surefire.failsafe.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-changelog-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>taglist-maven-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.tinyjee.dim</groupId>
+                    <artifactId>doxia-include-macro</artifactId>
+                    <version>${doxia-include-macro.version}</version>
+                </plugin>
+
             </plugins>
 
         </pluginManagement>
+
+
 
 
 
@@ -317,9 +344,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
-                    <compilerVersion>${java.version.compiler}</compilerVersion>
-                    <source>${java.version.source}</source>
-                    <target>${java.version.target}</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <debug>true</debug>
@@ -346,9 +370,100 @@
                 <version>1.3.1</version>
             </plugin>
 
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-confluence</artifactId>
+                        <version>1.6</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.tinyjee.dim</groupId>
+                        <artifactId>doxia-include-macro</artifactId>
+                        <version>${doxia-include-macro.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.tinyjee.dim</groupId>
+                <artifactId>doxia-include-macro</artifactId>
+                <executions>
+                    <execution>
+                        <id>initialize-doxia-include-macro</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>initialize</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>
+
+
+
+
+
+    <reporting>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>issue-tracking</report>
+                            <report>license</report>
+                            <report>plugin-management</report>
+                            <report>plugins</report>
+                            <report>scm</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <tagListOptions>
+                        <tagClasses>
+                            <tagClass>
+                                <displayName>TODO</displayName>
+                                <tags>
+                                    <tag>
+                                        <matchString>fixme</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>xxx</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>todo</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>nice</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                </tags>
+                            </tagClass>
+                        </tagClasses>
+                    </tagListOptions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </reporting>
+
+
 
 
 
@@ -387,7 +502,6 @@
                                     <banLatest>true</banLatest>
                                     <banRelease>true</banRelease>
                                     <banSnapshots>true</banSnapshots>
-                                    <phases>clean,deploy,site</phases>
                                     <additionalPlugins>
                                         <additionalPlugin>org.apache.maven.plugins:maven-reactor-plugin</additionalPlugin>
                                     </additionalPlugins>
@@ -525,11 +639,151 @@
 
 
 
+        <profile>
+
+            <id>changes-report</id>
+
+            <activation>
+                <file>
+                    <exists>src/changes/changes.xml</exists>
+                </file>
+            </activation>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-changes-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>changes-report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+
+        </profile>
+
+
+
+        <profile>
+            <id>scm-changelog</id>
+            <activation>
+                <property>
+                    <name>scm-changelog-report</name>
+                </property>
+            </activation>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-changelog-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>pom.xml</include>
+                            </includes>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>changelog</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+
+        </profile>
+
+
+        <profile>
+
+            <id>code-examples</id>
+
+            <activation>
+                <file>
+                    <exists>src/example</exists>
+                </file>
+            </activation>
+
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/example/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/example/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/example/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <configuration>
+                            <excludes>**/example/**</excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <configuration>
+                            <excludeRoots>
+                                <excludeRoot>src/example/java</excludeRoot>
+                            </excludeRoots>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+        </profile>
+
+
+
     </profiles>
 
 
 
+
+
     <distributionManagement>
+        <site>
+            <id>javanarior/${project.artifactId}</id>
+            <url>scm:git:git@github.com:javanarior/${project.artifactId}.git</url>
+        </site>
         <repository>
             <id>bintray-javanarior-maven</id>
             <name>javanarior-maven-javanarior-oss-pom</name>
