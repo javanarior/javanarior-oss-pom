@@ -1,0 +1,356 @@
+    ---
+    Usage
+    ---
+    ---
+    ---
+
+Usage
+
+%{toc|section=1|fromDepth=2|toDepth=3}
+
+* Default configuration
+
+  This configuration is applied in general, which means they are profile independent.
+
+** Java Version
+
+  To specify which JDK Version should be used, the property <<<java.version>>> could be set. To specify
+Java version 1.6 you will write in your POM
+
++---
+...
+<properties>
+        <java.version>1.6</java.version>
+</properties>
+...
++---
+
+  This will set the properties
+
+  * maven.compiler.compilerVersion
+
+  * maven.compiler.source
+
+  * maven.compiler.target
+
+  * maven.compiler.testSource
+
+  * maven.compiler.testTarget
+
+  []
+
+** maven-compiler-plugin
+
+  The following settings are applied to the <<<maven-compiler-plugin>>>
+
++---
+    <showDeprecation>true</showDeprecation>
+    <showWarnings>true</showWarnings>
+    <debug>true</debug>
+    <debuglevel>lines,vars,source</debuglevel>
+    <optimize>true</optimize>
++---
+
+** maven-release-plugin
+
+  The following settings are applied to the <<<maven-release-plugin>>>
+
++---
+    <useReleaseProfile>true</useReleaseProfile>
+    <autoVersionSubmodules>true</autoVersionSubmodules>
+    <tagNameFormat>releases/@{project.artifactId}-@{project.version}</tagNameFormat>
+    <pushChanges>true</pushChanges>
+    <releaseProfiles>javanarior-release</releaseProfiles>
+    <localCheckout>false</localCheckout>
++---
+
+** maven-site-plugin
+
+  The following additional dependency is configured for the <<<maven-site-plugin>>>
+
++---
+    <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.maven.doxia</groupId>
+                <artifactId>doxia-module-confluence</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tinyjee.dim</groupId>
+                <artifactId>doxia-include-macro</artifactId>
+                <version>${doxia-include-macro.version}</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+
+    <plugin>
+        <groupId>org.tinyjee.dim</groupId>
+        <artifactId>doxia-include-macro</artifactId>
+        <executions>
+            <execution>
+                <id>initialize-doxia-include-macro</id>
+                <phase>pre-site</phase>
+                <goals>
+                    <goal>initialize</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
++---
+
+  Instead of the full set of reports
+
++---
+    <reportSets>
+        <reportSet>
+            <reports>
+                <!-- Continuous Integration -->
+                <report>cim</report>
+                <report>dependencies</report>
+                <report>dependency-convergence</report>
+                <report>dependency-info</report>
+                <report>dependency-management</report>
+                <report>distribution-management</report>
+                <report>help</report>
+                <report>index</report>
+                <report>issue-tracking</report>
+                <report>license</report>
+                <report>mailing-list</report>
+                <report>modules</report>
+                <report>plugin-management</report>
+                <report>plugins</report>
+                <report>project-team</report>
+                <report>scm</report>
+                <report>summary</report>
+            </reports>
+        </reportSet>
+    </reportSets>
++---
+
+  for the POM, the set of reports is stripped down to
+
++---
+    <reportSets>
+        <reportSet>
+            <reports>
+                <report>issue-tracking</report>
+                <report>license</report>
+                <report>plugin-management</report>
+                <report>plugins</report>
+                <report>scm</report>
+                <report>summary</report>
+            </reports>
+        </reportSet>
+    </reportSets>
++---
+
+*** taglist-maven-plugin
+
+  Additional the <<<taglist-maven-plugin>>> is configured to generate a <<<TODO>>> report for the case ignored keywords
+
+  * FIXME
+
+  * XXX
+
+  * TODO
+
+  * NICE
+
+  []
+
+* Enforcer Plugin
+
+  The configuration for the <<<maven-enforcer-plugin>>> is put into the profile <<<validation>>>. The profile is
+intended to be run on continuous integration builds and can be activated by setting the property <<<build>>> to
+<<<qa>>> with
+
+---
+mvn clean install -Dbuild=qa
+---
+
+  When the profile is activated the maven-enforcer-plugin goal <<<enforce>>> is tied to the phase <<<validate>>>.
+Also the following rules are configured
+
+  * The Plugin Version is required
+
+    * Snapshots, LATEST and RELEASE are not allowed as Versions
+
+    * maven-reactor-plugin also requires a Version
+
+  * The Plugins <<<maven-surefire-plugin>>>, <<<maven-failsafe-plugin>>> and <<<maven-surefire-report-plugin>>>
+  need to have the same version, can be set with property <<<maven.surefire.failsafe.plugin.version>>>
+
+  * Dependency Versions has to converge
+
+  * For dependencies, no SNAPSHOT Version is allowed
+
+  * JDK with Version specified by <<<java.version>>> is required.
+
+* Changes Plugin
+
+  A Changelog can be maintained with <<<maven-changes-plugin>>>. When the file <<<src/changes/changes.xml>>> exists
+the profile <<<changes-report>>> is activated. This profile adds the <<<changes-report>>> to the report section.
+
+* Code Examples
+
+  Code examples are important to illustrate the usage of a library. To minimize the effort of maintenance for
+this examples, e.g. in case of refactorings, the examples are written in source files and included in the documentation.
+This way the examples are up to date with the API. On the other hand, code quality checks should usually not be executed
+on these examples. For this the profile <<<code-examples>>> was developed.
+  The Profile <<<code-examples>>> will be activated when the directory <<<src/example>>> exists. The Profile
+adds the directory
+
+---
+  src/example/java
+---
+
+  to the build path. Also the following plugins are configured to exclude the directory <<<src/example/java>>>
+or to exclude sources below the package <<<example>>> with the Ant pattern <<<**/example/**>>>.
+
+ * jacoco-maven-plugin
+
+ * maven-jar-plugin
+
+ * maven-checkstyle-plugin
+
+ * maven-pmd-plugin
+
+ * maven-findbugs-plugin (missing)
+
+ []
+
+* Release Configuration
+
+  The Release Profile is named <<<javanarior-release>>> and is activated during release build.
+
+** maven-source-plugin
+
+  The goal <<<jar>>> of the maven-source-plugin is bound to the phase <<<package>>>.
+
+** maven-javadoc-plugin
+
+  The goal <<<jar>>> of the maven-javadoc-plugin is also bound to the <<<package>>> phase.
+
+** maven-gpg-plugin
+
+  The maven-gpg-plugin is bound to the phase <<<verify>>> with the goal <<<sign>>>. The plugin expects
+a working GPG setup. To automate the signing, avoid entering a passphrase, you can provide the passphrase in the
+<<<~/.m2/settings.xml>>>
+
++---
+    ...
+    <profile>
+        <id>gpg</id>
+        <properties>
+            <gpg.executable>gpg2</gpg.executable>
+            <gpg.passphrase>YOUR_PASSPHRASE</gpg.passphrase>
+        </properties>
+    </profile>
+    ...
+    <activeProfiles>
+        <activeProfile>gpg</activeProfile>
+    </activeProfiles>
+    ...
++---
+
+** buildnumber-maven-plugin
+
+  The buildnumber-maven-plugin is used to generate a Timestamp in the format
+
+---
+    ...
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    ...
+---
+
+  This and other information are written in the MANIFEST.MF file with the maven-jar-plugin.
+
+
+** maven-install-plugin
+
+  The maven-install-plugin is configured to install at the end, create checksum and update release info with
+
+---
+    <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <configuration>
+            <createChecksum>true</createChecksum>
+            <installAtEnd>true</installAtEnd>
+            <updateReleaseInfo>true</updateReleaseInfo>
+        </configuration>
+    </plugin>
+---
+
+** maven-deploy-plugin
+
+  The configuration for the maven-deploy-plugin is similar to the one of the maven-install-plugin,
+except for the release info.
+
+---
+    <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+            <deployAtEnd>true</deployAtEnd>
+            <updateReleaseInfo>true</updateReleaseInfo>
+        </configuration>
+    </plugin>
+---
+
+** maven-jar-plugin
+
+  Additional to the default Specification and Implementation Entries the following information are written
+
+*-----------------------+------------------------------------+
+||Field name            || Property                          |
+*-----------------------+------------------------------------+
+| Release-ArtifactId    | project.artifactId                 |
+*-----------------------+------------------------------------+
+| Release-Version       | project.version                    |
+*-----------------------+------------------------------------+
+| Release-Timestamp     | maven.build.timestamp              |
+*-----------------------+------------------------------------+
+| Release-Revision      | buildNumber                        |
+*-----------------------+------------------------------------+
+| Release-Branch        | scmBranch                          |
+*-----------------------+------------------------------------+
+| Release-Repository    | project.scm.developerConnection    |
+*-----------------------+------------------------------------+
+
+* GitHub Pages
+
+  To publish your project site into gh-pages branch the <<<scm-publish-plugin>>> can be used. It works more reliable as the
+maven plugin from GitHub. At first create a orphan gh-pages branch with
+
+---
+$ git checkout --orphan gh-pages
+$ git rm -rf .
+$ rm .gitignore
+$ echo "My Page" > index.html
+$ git add index.html
+$ git commit -a -m "First pages commit"
+$ git push origin gh-pages
+---
+
+  For further information take a look in the Help from GitHub, at {{{https://help.github.com/articles/creating-project-pages-manually/}
+creating-project-pages-manually}}.
+After your gh-pages branch is pushed, you can call the <<<scm-publish-plugin>>> with
+
+---
+$ maven test site site:stage scm-publish:publish-scm
+---
+
+  To generate a project site at release build you have to change the goals which the <<<maven-release-plugin>>> will
+execute when you call <<<release:perform>>>. You can do this by changing the value of the <<<goals>>> property when calling
+<<<release:perform>>>
+
+---
+... -Dgoals=deploy site site:stage scm-publish:publish-scm
+---
+
+
+* Managed Plugins
+
+  The list of managed plugins could be found in the report section at {{{./plugin-management.html}plugin-management}}.
+
