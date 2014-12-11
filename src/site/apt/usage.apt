@@ -338,7 +338,7 @@ creating-project-pages-manually}}.
 After your gh-pages branch is pushed, you can call the <<<scm-publish-plugin>>> with
 
 ---
-$ maven test site site:stage scm-publish:publish-scm
+$ mvn test site site:stage scm-publish:publish-scm
 ---
 
   To generate a project site at release build you have to change the goals which the <<<maven-release-plugin>>> will
@@ -346,7 +346,7 @@ execute when you call <<<release:perform>>>. You can do this by changing the val
 <<<release:perform>>>
 
 ---
-... -Dgoals=deploy site site:stage scm-publish:publish-scm
+$ mvn release:perform -Dgoals=deploy site site:stage scm-publish:publish-scm
 ---
 
 
