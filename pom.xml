@@ -709,6 +709,7 @@
         </profile>
 
 
+
         <profile>
 
             <id>code-examples</id>
@@ -720,6 +721,27 @@
             </activation>
 
             <build>
+
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <configuration>
+                                <excludes>**/example/**</excludes>
+                            </configuration>
+                        </plugin>
+
+                        <plugin>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <configuration>
+                                <excludeRoots>
+                                    <excludeRoot>src/example/java</excludeRoot>
+                                </excludeRoots>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+
                 <plugins>
 
                     <plugin>
@@ -757,22 +779,6 @@
                             <excludes>
                                 <exclude>**/example/**</exclude>
                             </excludes>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <configuration>
-                            <excludes>**/example/**</excludes>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-pmd-plugin</artifactId>
-                        <configuration>
-                            <excludeRoots>
-                                <excludeRoot>src/example/java</excludeRoot>
-                            </excludeRoots>
                         </configuration>
                     </plugin>
 
