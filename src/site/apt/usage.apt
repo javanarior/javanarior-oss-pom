@@ -318,7 +318,22 @@ except for the release info.
 | Release-Repository    | project.scm.developerConnection    |
 *-----------------------+------------------------------------+
 
-* GitHub Pages
+* Project Page
+
+  If you maintain a project page and create a site.xml the profile <<<gh-pages>>> will be activated. This Profile
+adds the <<<doxia-module-confluence>>> and <<<doxia-include-macro>>> to the site plugin. The doxia-include-macro
+is also configured to run with <<<initialize>>> at the <<<pre-site>>> phase. Additional the maven-scm-publish-plugin
+is configured to use the gh-pages branch.
+
+  To generate a project site at release build you have to change the goals which the <<<maven-release-plugin>>> will
+execute when you call <<<release:perform>>>. You can do this by changing the value of the <<<goals>>> property when calling
+<<<release:perform>>>
+
+---
+$ mvn release:perform -Dgoals=deploy site site:stage scm-publish:publish-scm
+---
+
+** GitHub Pages
 
   To publish your project site into gh-pages branch the <<<scm-publish-plugin>>> can be used. It works more reliable as the
 maven plugin from GitHub. At first create a orphan gh-pages branch with
@@ -340,15 +355,6 @@ After your gh-pages branch is pushed, you can call the <<<scm-publish-plugin>>> 
 ---
 $ mvn test site site:stage scm-publish:publish-scm
 ---
-
-  To generate a project site at release build you have to change the goals which the <<<maven-release-plugin>>> will
-execute when you call <<<release:perform>>>. You can do this by changing the value of the <<<goals>>> property when calling
-<<<release:perform>>>
-
----
-$ mvn release:perform -Dgoals=deploy site site:stage scm-publish:publish-scm
----
-
 
 * Managed Plugins
 
