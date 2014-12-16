@@ -759,6 +759,12 @@
                 </file>
             </activation>
 
+            <properties>
+                <github.username>javanarior</github.username>
+                <scmpublish.scm.branch>gh-pages</scmpublish.scm.branch>
+                <scmpublish.checkinComment>Site checkin for ${project.name} ${project.version}</scmpublish.checkinComment>
+            </properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -795,14 +801,19 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-scm-publish-plugin</artifactId>
                         <configuration>
-                            <scmBranch>gh-pages</scmBranch>
-                            <checkinComment>Site checkin for ${project.name} ${project.version}</checkinComment>
                             <dryRun>${dryRun}</dryRun>
                         </configuration>
                     </plugin>
 
                 </plugins>
             </build>
+
+            <distributionManagement>
+                <site>
+                    <id>${github.username}/${project.artifactId}</id>
+                    <url>scm:git:git@github.com:${github.username}/${project.artifactId}.git</url>
+                </site>
+            </distributionManagement>
 
         </profile>
 
@@ -815,10 +826,6 @@
 
 
     <distributionManagement>
-        <site>
-            <id>javanarior/${project.artifactId}</id>
-            <url>scm:git:git@github.com:javanarior/${project.artifactId}.git</url>
-        </site>
         <repository>
             <id>bintray-javanarior-maven</id>
             <name>javanarior-maven-javanarior-oss-pom</name>

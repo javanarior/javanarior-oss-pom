@@ -322,8 +322,15 @@ except for the release info.
 
   If you maintain a project page and create a site.xml the profile <<<gh-pages>>> will be activated. This Profile
 adds the <<<doxia-module-confluence>>> and <<<doxia-include-macro>>> to the site plugin. The doxia-include-macro
-is also configured to run with <<<initialize>>> at the <<<pre-site>>> phase. Additional the maven-scm-publish-plugin
-is configured to use the gh-pages branch.
+is also configured to run with the goal <<<initialize>>> at the <<<pre-site>>> phase. Additional the
+maven-scm-publish-plugin is configured to use the gh-pages branch. The <<<site>>> section in
+<<<distributionManagement>>> is also set to
+
+ * \<id\>$\{github.username\}/$\{project.artifactId\}\</id\>
+
+ * \<url\>scm:git:git@github.com:$\{github.username\}/$\{project.artifactId\}.git\</url\>
+
+ []
 
   To generate a project site at release build you have to change the goals which the <<<maven-release-plugin>>> will
 execute when you call <<<release:perform>>>. You can do this by changing the value of the <<<goals>>> property when calling
