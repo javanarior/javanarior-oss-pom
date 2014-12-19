@@ -21,7 +21,7 @@
 
     <groupId>de.javanarior</groupId>
     <artifactId>javanarior-oss-pom</artifactId>
-    <version>26-SNAPSHOT</version>
+    <version>27-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
