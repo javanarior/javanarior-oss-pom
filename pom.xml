@@ -66,7 +66,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
         <doxia-include-macro.version>1.1</doxia-include-macro.version>
-        <maven.surefire.failsafe.plugin.version>2.18</maven.surefire.failsafe.plugin.version>
+        <maven.surefire.failsafe.plugin.version>2.18.1</maven.surefire.failsafe.plugin.version>
     </properties>
 
 
