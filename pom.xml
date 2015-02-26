@@ -20,7 +20,7 @@
 
     <groupId>de.javanarior</groupId>
     <artifactId>javanarior-oss-pom</artifactId>
-    <version>38-SNAPSHOT</version>
+    <version>38</version>
 
     <packaging>pom</packaging>
 
@@ -75,7 +75,7 @@
         <url>scm:https://github.com/javanarior/${project.artifactId}.git</url>
         <connection>scm:git:https://github.com/javanarior/${project.artifactId}.git</connection>
         <developerConnection>scm:git:git@github.com:javanarior/${project.artifactId}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>releases/javanarior-oss-pom-38</tag>
     </scm>
 
 
