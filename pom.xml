@@ -244,7 +244,7 @@
 
                 <plugin>
                     <artifactId>maven-stage-plugin</artifactId>
-                    <version>1.0-alpha-2</version>
+                    <version>1.0</version>
                 </plugin>
 
                 <plugin>
@@ -302,7 +302,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.3.201502191951</version>
+                    <version>0.7.4.201502262128</version>
                 </plugin>
 
                 <!-- Additional plugins for site generation -->
