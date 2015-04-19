@@ -11,7 +11,7 @@
             <item name="Usage" href="usage.html" collapse="false">
                 <item name="Default Configuration" href="usage.html#Default_Configuration" />
                 <item name="Enforcer Plugin" href="usage.html#Enforcer_Plugin" />
-                <item name="Changes PLugin" href="usage.html#Changes_Plugin" />
+                <item name="Changes Plugin" href="usage.html#Changes_Plugin" />
                 <item name="Code examples" href="usage.html#Code_Examples" />
                 <item name="Release Configuration" href="usage.html#Release_Configuration" />
                 <item name="Project Page" href="usage.html#Project_Page" />
@@ -20,8 +20,6 @@
         </menu>
         <menu ref="reports" />
     </body>
-
-    <googleAnalyticsAccountId>UA-56931930-2</googleAnalyticsAccountId>
 
     <version position="right" />
     <publishDate position="right" />
