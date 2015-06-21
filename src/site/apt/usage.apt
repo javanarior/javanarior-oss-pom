@@ -162,7 +162,7 @@ Java version 1.6 you will write in your POM
 
 * Enforcer Plugin
 
-  The configuration for the <<<maven-enforcer-plugin>>> is put into the profile <<<validation>>>. The profile is
+  The configuration for the <<<maven-enforcer-plugin>>> is placed in the profile <<<validation>>>. The profile is
 intended to be run on continuous integration builds and can be activated by setting the property <<<build>>> to
 <<<qa>>> with
 
