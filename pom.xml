@@ -607,7 +607,9 @@
 
 
         <profile>
+
             <id>scm-changelog</id>
+
             <activation>
                 <property>
                     <name>scm-changelog-report</name>
@@ -619,6 +621,8 @@
                     <plugin>
                         <artifactId>maven-changelog-plugin</artifactId>
                         <configuration>
+                            <!-- Used to specify the number of days of log entries to retrieve -->
+                            <range>90</range>
                             <includes>
                                 <include>pom.xml</include>
                             </includes>
