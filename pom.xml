@@ -63,6 +63,8 @@
         <maven.compiler.testSource>${java.version}</maven.compiler.testSource>
         <maven.compiler.testTarget>${java.version}</maven.compiler.testTarget>
 
+        <sonar.java.source>${java.version}</sonar.java.source>
+
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
         <doxia-include-macro.version>1.1</doxia-include-macro.version>
