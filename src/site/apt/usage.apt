@@ -221,6 +221,24 @@ or to exclude sources below the package <<<example>>> with the Ant pattern <<<**
 
  []
 
+* AspectJ
+
+  With the <<<aspectj-maven-plugin>>> the usage of {{{https://eclipse.org/aspectj/}aspectj}} is supported. The profile <<<aspectj>>> adds the library
+<<<org.aspectj:aspectjrt>>>. Also the goals <<<compile>>> and <<<test-compile>>> from the <<<aspectj-maven-plugin>>>
+are bound to the <<<process-classes>>> phase of the Maven life cycle. Additional the <<<aspectj-report>>> is added.
+  The Profile <<<aspectj>>> will be activated when the directory <<<src/main/aspect>>> exists. The Profile
+adds the directories
+
+---
+  src/main/aspect
+---
+
+  and
+
+---
+  src/test/aspect
+---
+
 * Release Configuration
 
   The Release Profile is named <<<javanarior-release>>> and is activated during release build.
