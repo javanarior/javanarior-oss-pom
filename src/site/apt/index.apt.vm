@@ -16,7 +16,7 @@ Introduction
   http://dl.bintray.com/javanarior/maven
 ----------------------------------------------------
 
-  To use the POM set the parent like
+  Set the POM as parent
 
 ----------------------------------------------------
     <parent>
