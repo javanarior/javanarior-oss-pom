@@ -69,6 +69,15 @@
 
         <doxia-include-macro.version>1.1</doxia-include-macro.version>
         <maven.surefire.failsafe.plugin.version>2.19.1</maven.surefire.failsafe.plugin.version>
+
+        <!-- Properties for profile aspectj, activated by src/main/aspect -->
+        <aspectj.version>1.8.7</aspectj.version>
+        <aspectj.plugin.version>1.8</aspectj.plugin.version>
+        <!-- One of: ignore, warning, error -->
+        <aspectj.Xlint>warning</aspectj.Xlint>
+        <!-- One of: none, disable, all, warnings-->
+        <aspectj.warn>all</aspectj.warn>
+        <aspectj.showWeaveInfo>true</aspectj.showWeaveInfo>
     </properties>
 
 
@@ -730,16 +739,6 @@
                     <exists>src/main/aspect</exists>
                 </file>
             </activation>
-
-            <properties>
-                <aspectj.version>1.8.7</aspectj.version>
-                <aspectj.plugin.version>1.8</aspectj.plugin.version>
-                <!-- One of: ignore, warning, error -->
-                <aspectj.Xlint>warning</aspectj.Xlint>
-                <!-- One of: none, disable, all, warnings-->
-                <aspectj.warn>all</aspectj.warn>
-                <aspectj.showWeaveInfo>true</aspectj.showWeaveInfo>
-            </properties>
 
 
 
